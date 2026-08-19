@@ -1,0 +1,2700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bilingual Bingo Caller</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+
+    background:
+        radial-gradient(
+            circle at 25% -20%,
+            #294276 0%,
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            #142850 0%,
+            transparent 40%
+        ),
+        #050816;
+
+    color: white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MAIN APPLICATION
+========================================================= */
+
+.app {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: grid;
+
+    grid-template-columns: 42% 58%;
+
+}
+
+
+/* =========================================================
+   LEFT PANEL
+========================================================= */
+
+.left-panel {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 35px;
+
+    border-right:
+        1px solid rgba(255,255,255,.08);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(12,22,47,.95),
+            rgba(5,10,25,.90)
+        );
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+    position: absolute;
+
+    top: 25px;
+
+    left: 0;
+    right: 0;
+
+    text-align: center;
+
+}
+
+
+.logo h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(35px, 3.2vw, 65px);
+
+    letter-spacing: 8px;
+
+    font-weight: 900;
+
+    color: #ffd43b;
+
+    text-shadow:
+        0 0 25px rgba(255,212,59,.20);
+
+}
+
+
+.logo .subtitle {
+
+    margin-top: 5px;
+
+    font-size:
+        clamp(15px, 1.2vw, 23px);
+
+    letter-spacing: 2px;
+
+    color: #9eaccb;
+
+}
+
+
+/* =========================================================
+   CURRENT LABEL
+========================================================= */
+
+.current-label {
+
+    margin-top: 65px;
+
+    font-size:
+        clamp(16px, 1.2vw, 24px);
+
+    letter-spacing: 4px;
+
+    font-weight: 800;
+
+    color: #8293b8;
+
+}
+
+
+/* =========================================================
+   CURRENT NUMBER
+========================================================= */
+
+.current-number {
+
+    width: min(27vw, 400px);
+
+    height: min(27vw, 400px);
+
+    min-width: 250px;
+
+    min-height: 250px;
+
+    margin: 15px 0 20px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size:
+        clamp(120px, 15vw, 230px);
+
+    font-weight: 900;
+
+    color: #111827;
+
+    background:
+
+        radial-gradient(
+            circle at 32% 25%,
+            #ffffff 0%,
+            #fff6ae 4%,
+            #ffe36a 15%,
+            #ffd43b 45%,
+            #e69b00 100%
+        );
+
+    border:
+        7px solid rgba(255,255,255,.28);
+
+    box-shadow:
+
+        0 20px 55px rgba(0,0,0,.55),
+
+        0 0 80px rgba(255,212,59,.18),
+
+        inset -25px -30px 40px
+            rgba(0,0,0,.15),
+
+        inset 20px 20px 40px
+            rgba(255,255,255,.35);
+
+    flex-shrink: 0;
+
+}
+
+
+.current-number.pop {
+
+    animation:
+        ballPop .45s ease;
+
+}
+
+
+@keyframes ballPop {
+
+    0% {
+
+        transform:
+            scale(.70);
+
+        opacity: .5;
+
+    }
+
+    55% {
+
+        transform:
+            scale(1.08);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   ANNOUNCEMENT
+========================================================= */
+
+.announcement {
+
+    min-height: 125px;
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    font-size:
+        clamp(21px, 2vw, 38px);
+
+    line-height: 1.4;
+
+    font-weight: 700;
+
+}
+
+
+.english {
+
+    color: #65d5ff;
+
+    text-shadow:
+        0 0 15px rgba(101,213,255,.15);
+
+}
+
+
+.italian {
+
+    margin-top: 5px;
+
+    color: #69e7a0;
+
+    text-shadow:
+        0 0 15px rgba(105,231,160,.15);
+
+}
+
+
+/* =========================================================
+   LEFT INFORMATION
+========================================================= */
+
+.left-info {
+
+    margin-top: 15px;
+
+    color: #647394;
+
+    font-size: 14px;
+
+}
+
+
+.left-info span {
+
+    color: #9aabc9;
+
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.right-panel {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+
+    padding: 30px;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(9,17,37,.85),
+            rgba(5,11,25,.95)
+        );
+
+}
+
+
+/* =========================================================
+   BOARD HEADER
+========================================================= */
+
+.board-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+}
+
+
+.board-title {
+
+    font-size:
+        clamp(20px, 1.6vw, 30px);
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    color: #dce5f8;
+
+}
+
+
+.counter {
+
+    font-size:
+        clamp(16px, 1.2vw, 22px);
+
+    color: #7f91b4;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================================
+   NUMBER BOARD
+========================================================= */
+
+.board {
+
+    flex: 1;
+
+    min-height: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, minmax(40px, 1fr));
+
+    gap:
+        clamp(5px, .55vw, 10px);
+
+    align-content: center;
+
+}
+
+
+/* =========================================================
+   NUMBER BALLS
+========================================================= */
+
+.ball {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 0;
+
+    border-radius: 9px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #18243e,
+            #10192d
+        );
+
+    border:
+        1px solid #2c3d62;
+
+    color: #647493;
+
+    font-size:
+        clamp(17px, 1.7vw, 30px);
+
+    font-weight: 800;
+
+    aspect-ratio: 1.35 / 1;
+
+    transition:
+
+        background .2s,
+        color .2s,
+        transform .2s,
+        box-shadow .2s;
+
+}
+
+
+/* =========================================================
+   CALLED NUMBER
+========================================================= */
+
+.ball.called {
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #2869e8,
+            #1746a8
+        );
+
+    border-color:
+        #63a3ff;
+
+    color: white;
+
+    box-shadow:
+        0 0 12px
+        rgba(37,99,235,.35);
+
+}
+
+
+/* =========================================================
+   CURRENT NUMBER
+========================================================= */
+
+.ball.current {
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #fff18a,
+            #ffc400
+        );
+
+    color: #111827;
+
+    border:
+        2px solid white;
+
+    transform:
+        scale(1.10);
+
+    box-shadow:
+        0 0 25px
+        rgba(255,212,59,.85);
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   BOARD FOOTER
+========================================================= */
+
+.board-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 15px;
+
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+}
+
+
+button {
+
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 11px 17px;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    background: #ffd43b;
+
+    color: #111827;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,.25);
+
+    transition:
+
+        transform .15s,
+        filter .15s;
+
+}
+
+
+button:hover {
+
+    filter: brightness(1.1);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+button:active {
+
+    transform:
+        scale(.97);
+
+}
+
+
+.secondary {
+
+    background: #293957;
+
+    color: white;
+
+}
+
+
+.auto {
+
+    background: #20c878;
+
+    color: white;
+
+}
+
+
+.danger {
+
+    background: #e5484d;
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.settings {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 10px;
+
+    padding-top: 10px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+
+}
+
+
+.settings label {
+
+    color: #7383a4;
+
+    font-size: 12px;
+
+}
+
+
+select {
+
+    margin-left: 4px;
+
+    background: #18243d;
+
+    color: #dce5f8;
+
+    border:
+        1px solid #34486e;
+
+    border-radius: 5px;
+
+    padding: 5px 7px;
+
+    max-width: 180px;
+
+}
+
+
+input[type="range"] {
+
+    width: 90px;
+
+    accent-color:
+        #ffd43b;
+
+    vertical-align: middle;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    body {
+
+        overflow: auto;
+
+    }
+
+
+    .app {
+
+        min-height: 100vh;
+
+        height: auto;
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .left-panel {
+
+        min-height: 650px;
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.08);
+
+    }
+
+
+    .right-panel {
+
+        min-height: 700px;
+
+    }
+
+
+    .board {
+
+        min-height: 550px;
+
+    }
+
+}
+
+
+/* =========================================================
+   LARGE TV
+========================================================= */
+
+@media (min-width: 1600px) {
+
+    .left-panel {
+
+        padding: 45px;
+
+    }
+
+
+    .right-panel {
+
+        padding: 40px;
+
+    }
+
+
+    .board {
+
+        gap: 9px;
+
+    }
+
+
+    .ball {
+
+        font-size: 30px;
+
+    }
+
+
+    .board-title {
+
+        font-size: 28px;
+
+    }
+
+
+    .counter {
+
+        font-size: 21px;
+
+    }
+
+}
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+body.fullscreen .left-panel {
+
+    padding: 45px;
+
+}
+
+
+body.fullscreen .right-panel {
+
+    padding: 40px;
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         LEFT PANEL
+    ====================================================== -->
+
+    <section class="left-panel">
+
+
+        <div class="logo">
+
+            <h1>🎱 BINGO</h1>
+
+            <div class="subtitle">
+
+                English 🇬🇧
+                &nbsp;→&nbsp;
+                Italian 🇮🇹
+
+            </div>
+
+        </div>
+
+
+        <div class="current-label">
+
+            CURRENT NUMBER
+
+        </div>
+
+
+        <div
+            id="currentNumber"
+            class="current-number"
+        >
+
+            —
+
+        </div>
+
+
+        <div
+            id="announcement"
+            class="announcement"
+        >
+
+            Press
+            <b>START / NEXT NUMBER</b>
+            to begin
+
+        </div>
+
+
+        <div class="left-info">
+
+            <span id="gameType">
+                90 BALL BINGO
+            </span>
+
+            &nbsp; • &nbsp;
+
+            <span>
+                NO DUPLICATES
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RIGHT PANEL
+    ====================================================== -->
+
+    <section class="right-panel">
+
+
+        <div class="board-header">
+
+
+            <div class="board-title">
+
+                CALLED NUMBERS
+
+            </div>
+
+
+            <div
+                id="stats"
+                class="counter"
+            >
+
+                0 / 90
+
+            </div>
+
+
+        </div>
+
+
+
+        <div
+            id="board"
+            class="board"
+        >
+        </div>
+
+
+
+        <div class="board-footer">
+
+
+            <div class="controls">
+
+
+                <button id="nextBtn">
+
+                    ▶ NEXT
+
+                </button>
+
+
+                <button
+                    id="autoBtn"
+                    class="auto"
+                >
+
+                    ▶ AUTO
+
+                </button>
+
+
+                <button
+                    id="pauseBtn"
+                    class="secondary"
+                >
+
+                    ⏸ PAUSE
+
+                </button>
+
+
+                <button
+                    id="repeatBtn"
+                    class="secondary"
+                >
+
+                    🔊 REPEAT
+
+                </button>
+
+
+                <button
+                    id="fullscreenBtn"
+                    class="secondary"
+                >
+
+                    ⛶ FULLSCREEN
+
+                </button>
+
+
+                <button
+                    id="resetBtn"
+                    class="danger"
+                >
+
+                    ↻ NEW GAME
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             SETTINGS
+        ================================================== -->
+
+        <div class="settings">
+
+
+            <!-- TOTAL NUMBERS -->
+
+            <label>
+
+                Total Numbers:
+
+                <select id="totalNumbers">
+
+
+                    <option value="30">
+                        30
+                    </option>
+
+
+                    <option value="50">
+                        50
+                    </option>
+
+
+                    <option value="75">
+                        75
+                    </option>
+
+
+                    <option value="80">
+                        80
+                    </option>
+
+
+                    <option
+                        value="90"
+                        selected
+                    >
+                        90
+                    </option>
+
+
+                </select>
+
+            </label>
+
+
+
+            <!-- INTERVAL -->
+
+            <label>
+
+                Interval:
+
+                <select id="interval">
+
+
+                    <option value="5">
+                        5 sec
+                    </option>
+
+
+                    <option
+                        value="8"
+                        selected
+                    >
+                        8 sec
+                    </option>
+
+
+                    <option value="10">
+                        10 sec
+                    </option>
+
+
+                    <option value="15">
+                        15 sec
+                    </option>
+
+
+                    <option value="20">
+                        20 sec
+                    </option>
+
+
+                    <option value="30">
+                        30 sec
+                    </option>
+
+
+                </select>
+
+            </label>
+
+
+
+            <!-- ENGLISH VOICE -->
+
+            <label>
+
+                English:
+
+                <select
+                    id="englishVoice"
+                >
+                </select>
+
+            </label>
+
+
+
+            <!-- ITALIAN VOICE -->
+
+            <label>
+
+                Italian:
+
+                <select
+                    id="italianVoice"
+                >
+                </select>
+
+            </label>
+
+
+
+            <!-- SPEED -->
+
+            <label>
+
+                Speed:
+
+                <input
+                    id="speed"
+                    type="range"
+                    min="0.6"
+                    max="1.3"
+                    step="0.05"
+                    value="0.9"
+                >
+
+                <span id="speedValue">
+                    0.90
+                </span>
+
+            </label>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   GAME CONFIGURATION
+========================================================= */
+
+let TOTAL_NUMBERS = 90;
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+let remaining = [];
+
+let called = [];
+
+let current = null;
+
+let autoTimer = null;
+
+let isPaused = false;
+
+
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const currentNumber =
+    document.getElementById(
+        "currentNumber"
+    );
+
+
+const announcement =
+    document.getElementById(
+        "announcement"
+    );
+
+
+const board =
+    document.getElementById(
+        "board"
+    );
+
+
+const stats =
+    document.getElementById(
+        "stats"
+    );
+
+
+const gameType =
+    document.getElementById(
+        "gameType"
+    );
+
+
+const nextBtn =
+    document.getElementById(
+        "nextBtn"
+    );
+
+
+const autoBtn =
+    document.getElementById(
+        "autoBtn"
+    );
+
+
+const pauseBtn =
+    document.getElementById(
+        "pauseBtn"
+    );
+
+
+const repeatBtn =
+    document.getElementById(
+        "repeatBtn"
+    );
+
+
+const fullscreenBtn =
+    document.getElementById(
+        "fullscreenBtn"
+    );
+
+
+const resetBtn =
+    document.getElementById(
+        "resetBtn"
+    );
+
+
+const totalNumbersSelect =
+    document.getElementById(
+        "totalNumbers"
+    );
+
+
+const intervalSelect =
+    document.getElementById(
+        "interval"
+    );
+
+
+const englishVoiceSelect =
+    document.getElementById(
+        "englishVoice"
+    );
+
+
+const italianVoiceSelect =
+    document.getElementById(
+        "italianVoice"
+    );
+
+
+const speed =
+    document.getElementById(
+        "speed"
+    );
+
+
+const speedValue =
+    document.getElementById(
+        "speedValue"
+    );
+
+
+/* =========================================================
+   DIGIT WORDS
+========================================================= */
+
+const englishDigits = [
+
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"
+
+];
+
+
+const italianDigits = [
+
+    "zero",
+    "uno",
+    "due",
+    "tre",
+    "quattro",
+    "cinque",
+    "sei",
+    "sette",
+    "otto",
+    "nove"
+
+];
+
+
+/* =========================================================
+   CREATE BOARD
+========================================================= */
+
+function createBoard() {
+
+    board.innerHTML = "";
+
+
+    for (
+        let number = 1;
+        number <= TOTAL_NUMBERS;
+        number++
+    ) {
+
+
+        const ball =
+            document.createElement(
+                "div"
+            );
+
+
+        ball.className =
+            "ball";
+
+
+        ball.id =
+            "ball-" + number;
+
+
+        ball.textContent =
+            number;
+
+
+        board.appendChild(
+            ball
+        );
+
+    }
+
+
+}
+
+
+/* =========================================================
+   NEW GAME
+========================================================= */
+
+function newGame() {
+
+    stopAuto();
+
+
+    remaining = [];
+
+
+    for (
+        let number = 1;
+        number <= TOTAL_NUMBERS;
+        number++
+    ) {
+
+        remaining.push(
+            number
+        );
+
+    }
+
+
+    called = [];
+
+    current = null;
+
+
+    currentNumber.textContent =
+        "—";
+
+
+    announcement.innerHTML =
+
+        `
+        Press
+        <b>START / NEXT NUMBER</b>
+        to begin
+        `;
+
+
+    gameType.textContent =
+        `${TOTAL_NUMBERS} BALL BINGO`;
+
+
+    document
+        .querySelectorAll(
+            ".ball"
+        )
+        .forEach(
+            ball => {
+
+                ball.classList.remove(
+                    "called",
+                    "current"
+                );
+
+            }
+        );
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   DRAW NUMBER
+========================================================= */
+
+function drawNumber() {
+
+
+    if (
+        remaining.length === 0
+    ) {
+
+
+        stopAuto();
+
+
+        announcement.innerHTML =
+
+            `
+            <div class="english">
+                🎉 All ${TOTAL_NUMBERS}
+                numbers have been called.
+            </div>
+
+            <div class="italian">
+                🎉 Tutti i ${TOTAL_NUMBERS}
+                numeri sono stati estratti.
+            </div>
+            `;
+
+
+        speak(
+            `All ${TOTAL_NUMBERS}
+             numbers have been called.`,
+            "en-US"
+        );
+
+
+        return;
+
+    }
+
+
+    const index =
+
+        Math.floor(
+            Math.random() *
+            remaining.length
+        );
+
+
+    current =
+
+        remaining.splice(
+            index,
+            1
+        )[0];
+
+
+    called.push(
+        current
+    );
+
+
+    showNumber(
+        current
+    );
+
+
+    updateStats();
+
+
+    speakBilingual(
+        current
+    );
+
+}
+
+
+/* =========================================================
+   SHOW NUMBER
+========================================================= */
+
+function showNumber(
+    number
+) {
+
+
+    currentNumber.textContent =
+        number;
+
+
+    /* Restart animation */
+
+    currentNumber.classList.remove(
+        "pop"
+    );
+
+
+    void currentNumber.offsetWidth;
+
+
+    currentNumber.classList.add(
+        "pop"
+    );
+
+
+    /* Remove previous highlight */
+
+    document
+        .querySelectorAll(
+            ".ball"
+        )
+        .forEach(
+            ball => {
+
+                ball.classList.remove(
+                    "current"
+                );
+
+            }
+        );
+
+
+    const ball =
+        document.getElementById(
+            "ball-" + number
+        );
+
+
+    if (ball) {
+
+        ball.classList.add(
+            "called"
+        );
+
+
+        ball.classList.add(
+            "current"
+        );
+
+    }
+
+
+    /*
+       IMPORTANT:
+
+       There is deliberately NO:
+
+       ball.scrollIntoView()
+
+       The TV display stays fixed.
+    */
+
+
+    announcement.innerHTML =
+        formatAnnouncement(
+            number
+        );
+
+}
+
+
+/* =========================================================
+   FORMAT ANNOUNCEMENT
+========================================================= */
+
+function formatAnnouncement(
+    number
+) {
+
+
+    /*
+       Always use two digits for
+       the digit announcement.
+
+       7  -> 07
+       27 -> 27
+       90 -> 90
+    */
+
+
+    const digits =
+
+        String(number)
+            .padStart(2, "0")
+            .split("")
+            .map(Number);
+
+
+    const englishText =
+
+        digits
+            .map(
+                digit =>
+                    englishDigits[
+                        digit
+                    ]
+            )
+            .join(" and ");
+
+
+    const italianText =
+
+        digits
+            .map(
+                digit =>
+                    italianDigits[
+                        digit
+                    ]
+            )
+            .join(" e ");
+
+
+    return `
+
+        <div class="english">
+
+            Number ${number},
+            ${englishText}.
+
+        </div>
+
+
+        <div class="italian">
+
+            Numero ${number},
+            ${italianText}.
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   BILINGUAL SPEECH
+========================================================= */
+
+function speakBilingual(
+    number
+) {
+
+
+    window.speechSynthesis.cancel();
+
+
+    const digits =
+
+        String(number)
+            .padStart(2, "0")
+            .split("")
+            .map(Number);
+
+
+    const englishDigitText =
+
+        digits
+            .map(
+                digit =>
+                    englishDigits[
+                        digit
+                    ]
+            )
+            .join(" and ");
+
+
+    const italianDigitText =
+
+        digits
+            .map(
+                digit =>
+                    italianDigits[
+                        digit
+                    ]
+            )
+            .join(" e ");
+
+
+    const englishText =
+
+        `Number ${number},
+         ${englishDigitText}.`;
+
+
+    const italianText =
+
+        `Numero ${number},
+         ${italianDigitText}.`;
+
+
+    /* =====================================================
+       ENGLISH
+    ====================================================== */
+
+    const englishUtterance =
+
+        new SpeechSynthesisUtterance(
+            englishText
+        );
+
+
+    englishUtterance.lang =
+        "en-US";
+
+
+    englishUtterance.rate =
+        parseFloat(
+            speed.value
+        );
+
+
+    englishUtterance.pitch =
+        1;
+
+
+    const englishVoice =
+        getSelectedVoice(
+            englishVoiceSelect
+        );
+
+
+    if (
+        englishVoice
+    ) {
+
+        englishUtterance.voice =
+            englishVoice;
+
+    }
+
+
+    /* =====================================================
+       ITALIAN
+    ====================================================== */
+
+    const italianUtterance =
+
+        new SpeechSynthesisUtterance(
+            italianText
+        );
+
+
+    italianUtterance.lang =
+        "it-IT";
+
+
+    italianUtterance.rate =
+        parseFloat(
+            speed.value
+        );
+
+
+    italianUtterance.pitch =
+        1;
+
+
+    const italianVoice =
+        getSelectedVoice(
+            italianVoiceSelect
+        );
+
+
+    if (
+        italianVoice
+    ) {
+
+        italianUtterance.voice =
+            italianVoice;
+
+    }
+
+
+    /* English first */
+
+    window.speechSynthesis.speak(
+        englishUtterance
+    );
+
+
+    /* Italian immediately follows */
+
+    window.speechSynthesis.speak(
+        italianUtterance
+    );
+
+}
+
+
+/* =========================================================
+   GENERAL SPEECH
+========================================================= */
+
+function speak(
+    text,
+    language
+) {
+
+
+    window.speechSynthesis.cancel();
+
+
+    const utterance =
+
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    utterance.lang =
+        language;
+
+
+    utterance.rate =
+        parseFloat(
+            speed.value
+        );
+
+
+    const voiceSelect =
+
+        language.startsWith(
+            "it"
+        )
+            ? italianVoiceSelect
+            : englishVoiceSelect;
+
+
+    const voice =
+        getSelectedVoice(
+            voiceSelect
+        );
+
+
+    if (
+        voice
+    ) {
+
+        utterance.voice =
+            voice;
+
+    }
+
+
+    window.speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   REPEAT
+========================================================= */
+
+function repeatNumber() {
+
+
+    if (
+        current === null
+    ) {
+
+        return;
+
+    }
+
+
+    speakBilingual(
+        current
+    );
+
+}
+
+
+/* =========================================================
+   VOICES
+========================================================= */
+
+let availableVoices = [];
+
+
+function loadVoices() {
+
+
+    availableVoices =
+        window.speechSynthesis
+            .getVoices();
+
+
+    englishVoiceSelect.innerHTML =
+        "";
+
+
+    italianVoiceSelect.innerHTML =
+        "";
+
+
+    const englishVoices =
+
+        availableVoices.filter(
+            voice =>
+                voice.lang
+                    .toLowerCase()
+                    .startsWith("en")
+        );
+
+
+    const italianVoices =
+
+        availableVoices.filter(
+            voice =>
+                voice.lang
+                    .toLowerCase()
+                    .startsWith("it")
+        );
+
+
+    /* =====================================================
+       ENGLISH VOICES
+    ====================================================== */
+
+    if (
+        englishVoices.length === 0
+    ) {
+
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.textContent =
+            "Browser default";
+
+
+        englishVoiceSelect.appendChild(
+            option
+        );
+
+
+    } else {
+
+
+        englishVoices.forEach(
+            voice => {
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    availableVoices.indexOf(
+                        voice
+                    );
+
+
+                option.textContent =
+                    `${voice.name}
+                     (${voice.lang})`;
+
+
+                englishVoiceSelect
+                    .appendChild(
+                        option
+                    );
+
+
+                /*
+                   Prefer Australian
+                   English if available.
+                */
+
+                if (
+
+                    voice.lang
+                        .toLowerCase() ===
+                    "en-au"
+
+                ) {
+
+                    option.selected =
+                        true;
+
+                }
+
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ITALIAN VOICES
+    ====================================================== */
+
+    if (
+        italianVoices.length === 0
+    ) {
+
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+
+        option.textContent =
+            "Browser default";
+
+
+        italianVoiceSelect.appendChild(
+            option
+        );
+
+
+    } else {
+
+
+        italianVoices.forEach(
+            voice => {
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    availableVoices.indexOf(
+                        voice
+                    );
+
+
+                option.textContent =
+                    `${voice.name}
+                     (${voice.lang})`;
+
+
+                italianVoiceSelect
+                    .appendChild(
+                        option
+                    );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GET SELECTED VOICE
+========================================================= */
+
+function getSelectedVoice(
+    select
+) {
+
+
+    const index =
+        parseInt(
+            select.value
+        );
+
+
+    if (
+        isNaN(index)
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        availableVoices[index]
+        || null
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats() {
+
+
+    stats.textContent =
+
+        `${called.length}
+         / ${TOTAL_NUMBERS}`;
+
+}
+
+
+/* =========================================================
+   AUTOMATIC CALLING
+========================================================= */
+
+function startAuto() {
+
+
+    if (
+        remaining.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        autoTimer
+    ) {
+
+        return;
+
+    }
+
+
+    isPaused =
+        false;
+
+
+    autoBtn.textContent =
+        "⏹ AUTO RUNNING";
+
+
+    drawNumber();
+
+
+    scheduleNext();
+
+}
+
+
+function scheduleNext() {
+
+
+    if (
+
+        autoTimer === null &&
+
+        remaining.length > 0 &&
+
+        !isPaused
+
+    ) {
+
+
+        autoTimer =
+
+            setTimeout(
+                () => {
+
+
+                    autoTimer =
+                        null;
+
+
+                    drawNumber();
+
+
+                    if (
+
+                        remaining.length > 0
+                        &&
+                        !isPaused
+
+                    ) {
+
+                        scheduleNext();
+
+                    }
+
+
+                },
+
+                parseInt(
+                    intervalSelect.value
+                ) * 1000
+            );
+
+    }
+
+}
+
+
+function stopAuto() {
+
+
+    if (
+        autoTimer
+    ) {
+
+
+        clearTimeout(
+            autoTimer
+        );
+
+
+        autoTimer =
+            null;
+
+    }
+
+
+    isPaused =
+        false;
+
+
+    autoBtn.textContent =
+        "▶ AUTO";
+
+
+    pauseBtn.textContent =
+        "⏸ PAUSE";
+
+}
+
+
+function pauseAuto() {
+
+
+    if (
+        !autoTimer
+    ) {
+
+        return;
+
+    }
+
+
+    clearTimeout(
+        autoTimer
+    );
+
+
+    autoTimer =
+        null;
+
+
+    isPaused =
+        true;
+
+
+    pauseBtn.textContent =
+        "▶ RESUME";
+
+}
+
+
+function resumeAuto() {
+
+
+    if (
+        !isPaused
+    ) {
+
+        return;
+
+    }
+
+
+    isPaused =
+        false;
+
+
+    pauseBtn.textContent =
+        "⏸ PAUSE";
+
+
+    scheduleNext();
+
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+========================================================= */
+
+nextBtn.addEventListener(
+    "click",
+    () => {
+
+
+        /*
+           Manual next cancels the
+           current automatic timer.
+        */
+
+        if (
+            autoTimer
+        ) {
+
+
+            clearTimeout(
+                autoTimer
+            );
+
+
+            autoTimer =
+                null;
+
+        }
+
+
+        drawNumber();
+
+    }
+);
+
+
+/* =========================================================
+   AUTO BUTTON
+========================================================= */
+
+autoBtn.addEventListener(
+    "click",
+    () => {
+
+
+        if (
+            autoTimer
+        ) {
+
+            stopAuto();
+
+        } else {
+
+            startAuto();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PAUSE BUTTON
+========================================================= */
+
+pauseBtn.addEventListener(
+    "click",
+    () => {
+
+
+        if (
+            isPaused
+        ) {
+
+            resumeAuto();
+
+        } else if (
+            autoTimer
+        ) {
+
+            pauseAuto();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REPEAT BUTTON
+========================================================= */
+
+repeatBtn.addEventListener(
+    "click",
+    repeatNumber
+);
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+fullscreenBtn.addEventListener(
+    "click",
+    async () => {
+
+
+        try {
+
+
+            if (
+                !document.fullscreenElement
+            ) {
+
+
+                await document
+                    .documentElement
+                    .requestFullscreen();
+
+
+                document.body
+                    .classList
+                    .add(
+                        "fullscreen"
+                    );
+
+
+            } else {
+
+
+                await document
+                    .exitFullscreen();
+
+
+                document.body
+                    .classList
+                    .remove(
+                        "fullscreen"
+                    );
+
+            }
+
+
+        } catch (
+            error
+        ) {
+
+
+            console.log(
+                "Fullscreen unavailable",
+                error
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+resetBtn.addEventListener(
+    "click",
+    () => {
+
+
+        const confirmed =
+            confirm(
+                "Start a new Bingo game?\n\n" +
+                "All called numbers will be cleared."
+            );
+
+
+        if (
+            confirmed
+        ) {
+
+            newGame();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   TOTAL NUMBER SELECTOR
+========================================================= */
+
+totalNumbersSelect.addEventListener(
+    "change",
+    () => {
+
+
+        TOTAL_NUMBERS =
+            parseInt(
+                totalNumbersSelect.value
+            );
+
+
+        createBoard();
+
+        newGame();
+
+    }
+);
+
+
+/* =========================================================
+   SPEECH SPEED
+========================================================= */
+
+speed.addEventListener(
+    "input",
+    () => {
+
+
+        speedValue.textContent =
+
+            parseFloat(
+                speed.value
+            ).toFixed(2);
+
+    }
+);
+
+
+/* =========================================================
+   INTERVAL CHANGE
+========================================================= */
+
+intervalSelect.addEventListener(
+    "change",
+    () => {
+
+
+        if (
+            autoTimer
+        ) {
+
+
+            clearTimeout(
+                autoTimer
+            );
+
+
+            autoTimer =
+                null;
+
+
+            scheduleNext();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+
+        /*
+           SPACE = NEXT
+        */
+
+        if (
+
+            event.code === "Space" &&
+
+            event.target.tagName !==
+                "SELECT" &&
+
+            event.target.tagName !==
+                "INPUT"
+
+        ) {
+
+
+            event.preventDefault();
+
+
+            drawNumber();
+
+        }
+
+
+        /*
+           R = REPEAT
+        */
+
+        if (
+
+            event.key.toLowerCase()
+            === "r"
+
+        ) {
+
+
+            repeatNumber();
+
+        }
+
+
+        /*
+           F = FULLSCREEN
+        */
+
+        if (
+
+            event.key.toLowerCase()
+            === "f"
+
+        ) {
+
+
+            fullscreenBtn.click();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   LOAD VOICES
+========================================================= */
+
+window.speechSynthesis
+    .onvoiceschanged =
+    loadVoices;
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+createBoard();
+
+newGame();
+
+loadVoices();
+
+</script>
+
+</body>
+</html>
